@@ -19,3 +19,5 @@ In my supervision tree:
 ```
 {NervesNode, cookie: :myniceseecretcookie}
 ```
+
+At the time of writing, [this repo](https://github.com/lawik/deck) had a working setup for a Pi400 with an HDMI backpack.
