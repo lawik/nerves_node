@@ -11,3 +11,11 @@ Each Nerves device needs the [mdns_lite bridge configuration](https://github.com
 This library handles [this part](https://hexdocs.pm/nerves_pack/0.6.0/readme.html#erlang-distribution) plus making queries and using the responses.
 
 Each device needs to be on the same network.
+
+I added this as a path dependency but you could use a github dependency as well (in your mix.exs).
+
+In my supervision tree:
+
+```
+{NervesNode, cookie: :myniceseecretcookie}
+```
