@@ -12,7 +12,11 @@ defmodule NervesNode do
   @impl GenServer
   def init(opts) do
     {"", 0} = System.cmd("epmd", ["-daemon"])
-    {:ok, pid} = Node.start(:"nerves@#{hostname()}.local")
+    {:ok, pid} =
+      case Node.start(:"nerves@#{hostname()}.local") do
+        {:ok, pid} -> {:ok, pid}
+        {:error, {:already_started, pid}} -> {:ok, pid}
+      end
     Node.set_cookie(opts[:cookie])
     state = %{node_pid: pid, opts: opts}
     Process.send_after(self(), :check, @interval)
@@ -58,6 +62,6 @@ defmodule NervesNode do
   end
 
   defp build_query(service_definition) do
-    {:dns_query, service_definition, :ptr, :in}
+    {:dns_query, service_definition, :ptr, :in, false}
   end
 end
